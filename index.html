@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookFast - Turn Fridge Ingredients Into 15-Minute Meals</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF6B00',
+                            orangeHover: '#E05E00',
+                            light: '#FFF6F0',
+                            dark: '#1A1A1A',
+                            sage: '#E2EFE1',
+                            sageText: '#2D5A27',
+                            cream: '#FAF7F2'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '3xl': '1.5rem',
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans antialiased selection:bg-brand-orange selection:text-white">
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-orange-100/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-11 h-11 bg-brand-orange rounded-2xl flex items-center justify-center text-white shadow-lg shadow-brand-orange/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-utensils text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-brand-dark">Cook<span class="text-brand-orange">Fast</span></span>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-gray-600">
+                <a href="#features" class="hover:text-brand-orange transition-colors">Features</a>
+                <a href="#how-it-works" class="hover:text-brand-orange transition-colors">How It Works</a>
+                <a href="#sneak-peek" class="hover:text-brand-orange transition-colors">Recipe Magic</a>
+                <a href="#testimonials" class="hover:text-brand-orange transition-colors">Testimonials</a>
+                <a href="#faq" class="hover:text-brand-orange transition-colors">FAQ</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="flex items-center gap-4">
+                <button onclick="openModal('download')" class="hidden sm:inline-flex items-center justify-center px-6 py-3 bg-brand-orange hover:bg-brand-orangeHover text-white font-semibold rounded-full shadow-lg shadow-brand-orange/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    <span>Download App</span>
+                    <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-700 hover:text-brand-orange focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3">
+            <a href="#features" class="block py-2 text-gray-700 font-medium hover:text-brand-orange">Features</a>
+            <a href="#how-it-works" class="block py-2 text-gray-700 font-medium hover:text-brand-orange">How It Works</a>
+            <a href="#sneak-peek" class="block py-2 text-gray-700 font-medium hover:text-brand-orange">Recipe Magic</a>
+            <a href="#testimonials" class="block py-2 text-gray-700 font-medium hover:text-brand-orange">Testimonials</a>
+            <a href="#faq" class="block py-2 text-gray-700 font-medium hover:text-brand-orange">FAQ</a>
+            <button onclick="openModal('download')" class="w-full py-3 bg-brand-orange text-white font-semibold rounded-full shadow-md text-center mt-2">
+                Download App
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden bg-gradient-to-b from-brand-light via-brand-cream to-brand-cream">
+        <!-- Background blob decorations -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-orange-200/30 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <!-- Left Column Text -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 text-brand-orange rounded-full text-sm font-semibold tracking-wide animate-pulse">
+                        <i class="fa-solid fa-bolt-lightning"></i> Over 50,000+ Quick Meals Whipped Up!
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-dark tracking-tight leading-[1.15]">
+                        Turn What’s In Your Fridge Into <span class="text-brand-orange underline decoration-orange-300 decoration-wavy decoration-2">Dinner in 15 Minutes.</span>
+                    </h1>
+                    
+                    <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Stop stressing over meal times. Tell CookFast what ingredients you have, and get lightning-fast, delicious recipes instantly tailored to your pantry.
+                    </p>
+
+                    <!-- Email Waitlist & App Download Form -->
+                    <div class="pt-2 max-w-md mx-auto lg:mx-0">
+                        <form onsubmit="handleWaitlist(event)" class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" id="waitlist-email" placeholder="Enter your email address..." required
+                                class="flex-grow px-5 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-orange bg-white shadow-sm text-brand-dark placeholder-gray-400">
+                            <button type="submit" class="px-7 py-4 bg-brand-orange hover:bg-brand-orangeHover text-white font-bold rounded-full shadow-lg shadow-brand-orange/30 transition-all flex items-center justify-center gap-2">
+                                <span>Get Started</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </form>
+                        <p class="text-xs text-gray-500 mt-2.5 text-center lg:text-left">Free forever for early birds. No credit card required.</p>
+                    </div>
+
+                    <!-- App Badges -->
+                    <div class="pt-4 flex items-center justify-center lg:justify-start gap-4">
+                        <a href="#" onclick="openModal('store')" class="flex items-center gap-3 bg-brand-dark text-white px-5 py-3 rounded-2xl hover:bg-black transition-all shadow-md group">
+                            <i class="fa-brands fa-apple text-3xl group-hover:scale-110 transition-transform"></i>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400">Download on the</p>
+                                <p class="text-sm font-bold leading-tight">App Store</p>
+                            </div>
+                        </a>
+                        <a href="#" onclick="openModal('store')" class="flex items-center gap-3 bg-brand-dark text-white px-5 py-3 rounded-2xl hover:bg-black transition-all shadow-md group">
+                            <i class="fa-brands fa-google-play text-2xl group-hover:scale-110 transition-transform"></i>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400">Get it on</p>
+                                <p class="text-sm font-bold leading-tight">Google Play</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column Visual / App Mockup -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-sm animate-float">
+                        <!-- Phone Mockup Container -->
+                        <div class="bg-brand-dark rounded-[40px] p-4 shadow-2xl border-4 border-gray-800 relative z-10">
+                            <div class="bg-white rounded-[32px] overflow-hidden">
+                                <!-- Phone Header status bar -->
+                                <div class="bg-brand-orange px-6 pt-6 pb-4 text-white flex justify-between items-center">
+                                    <div>
+                                        <p class="text-xs opacity-80 uppercase tracking-wider">Good evening,</p>
+                                        <p class="text-lg font-bold">What's in your fridge?</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                        <i class="fa-solid fa-camera text-white"></i>
+                                    </div>
+                                </div>
+                                <!-- Phone Content -->
+                                <div class="p-5 space-y-4 bg-gray-50 min-h-[380px]">
+                                    <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-9 h-9 bg-orange-100 rounded-xl flex items-center justify-center text-brand-orange font-bold">🥚</div>
+                                            <div>
+                                                <p class="text-sm font-semibold">Organic Eggs</p>
+                                                <p class="text-xs text-gray-400">4 items left</p>
+                                            </div>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Selected</span>
+                                    </div>
+
+                                    <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-9 h-9 bg-green-100 rounded-xl flex items-center justify-center text-green-600 font-bold">🥬</div>
+                                            <div>
+                                                <p class="text-sm font-semibold">Fresh Spinach</p>
+                                                <p class="text-xs text-gray-400">Expires soon</p>
+                                            </div>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Selected</span>
+                                    </div>
+
+                                    <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-9 h-9 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 font-bold">🧀</div>
+                                            <div>
+                                                <p class="text-sm font-semibold">Cheddar Cheese</p>
+                                                <p class="text-xs text-gray-400">Half block</p>
+                                            </div>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Selected</span>
+                                    </div>
+
+                                    <button class="w-full py-3 bg-brand-orange text-white rounded-xl font-semibold shadow-md flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate 15-Min Recipe
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 z-20 flex items-center gap-3">
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center text-2xl font-bold">⏱️</div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-medium">Average Cook Time</p>
+                                <p class="text-base font-extrabold text-brand-dark">12.4 Minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof / Trust Bar -->
+    <section class="py-10 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Featured In & Loved By Foodies Worldwide</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all">
+                <span class="text-xl font-black font-serif tracking-tighter text-gray-800">BON APPÉTIT</span>
+                <span class="text-xl font-extrabold font-sans tracking-widest text-gray-800">TECHCRUNCH</span>
+                <span class="text-xl font-bold font-serif italic text-gray-800">Vogue Food</span>
+                <span class="text-xl font-black font-mono tracking-tight text-gray-800">RECIPE+MAG</span>
+                <span class="text-xl font-extrabold font-sans text-gray-800">ECO-TABLE</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section id="features" class="py-20 lg:py-32 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="px-4 py-1.5 bg-orange-100 text-brand-orange font-bold text-xs uppercase tracking-wider rounded-full">Why Choose CookFast</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mt-3 mb-4">Everything You Need to Conquer Dinnertime</h2>
+                <p class="text-gray-600 text-lg">Designed from the ground up for busy schedules, zero food waste, and maximum flavor.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-冷蔵庫 fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Fridge-First Search</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Type in 3+ ingredients you have right now, and let our smart algorithm craft custom recipes instantly.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Strictly 15-Minute Meals</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">No complicated steps or hours of prep. Lightning-fast comfort food made fresh at home.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Zero Waste, More Savings</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Save money on grocery bills by utilizing leftover vegetables, proteins, and dairy before they spoil.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Step-by-Step Guided Mode</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Audio-assisted voice timers and simple instructions so you never burn dinner while multitasking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="px-4 py-1.5 bg-green-100 text-green-700 font-bold text-xs uppercase tracking-wider rounded-full">Simple 3-Step Process</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mt-3 mb-4">How CookWorks Magic Happens</h2>
+                <p class="text-gray-600 text-lg">From empty fridge to dinner table in under 15 minutes flat.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="bg-brand-cream p-8 rounded-3xl relative text-center group hover:bg-orange-50 transition-colors">
+                    <div class="w-16 h-16 bg-brand-orange text-white rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg shadow-brand-orange/20 mb-6 group-hover:scale-110 transition-transform">
+                        1
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Snap or Tap Ingredients</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Take a quick snapshot of your open fridge or tap in your leftover items with our autocomplete pantry.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-brand-cream p-8 rounded-3xl relative text-center group hover:bg-orange-50 transition-colors">
+                    <div class="w-16 h-16 bg-brand-orange text-white rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg shadow-brand-orange/20 mb-6 group-hover:scale-110 transition-transform">
+                        2
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Pick Your Recipe</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Choose from a curated list of lightning-fast recipes guaranteed to match what you already have.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-brand-cream p-8 rounded-3xl relative text-center group hover:bg-orange-50 transition-colors">
+                    <div class="w-16 h-16 bg-brand-orange text-white rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg shadow-brand-orange/20 mb-6 group-hover:scale-110 transition-transform">
+                        3
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Cook & Enjoy</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Follow our foolproof 15-minute guided mode with built-in timers and voice assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Sneak Peek / Widget Section -->
+    <section id="sneak-peek" class="py-20 lg:py-32 bg-gradient-to-br from-brand-orange via-orange-600 to-amber-600 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="px-4 py-1.5 bg-white/20 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider rounded-full">Interactive Demo</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 mb-4">Try the Recipe Generator Right Now</h2>
+                <p class="text-orange-100 text-base">Select 3 ingredients below and test out CookFast's instant matching magic!</p>
+            </div>
+
+            <!-- Widget Card -->
+            <div class="bg-white text-brand-dark rounded-4xl p-6 sm:p-10 shadow-2xl">
+                <p class="text-sm font-semibold text-gray-500 mb-4">Select your ingredients (Pick 3):</p>
+                
+                <!-- Ingredient selector chips -->
+                <div class="flex flex-wrap gap-2.5 mb-8" id="ingredient-chips">
+                    <button onclick="toggleIngredient(this, 'Eggs')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2 selected-chip bg-orange-50 border-brand-orange text-brand-orange" data-ing="Eggs">
+                        <span>🥚 Eggs</span> <i class="fa-solid fa-check text-xs"></i>
+                    </button>
+                    <button onclick="toggleIngredient(this, 'Spinach')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2 selected-chip bg-orange-50 border-brand-orange text-brand-orange" data-ing="Spinach">
+                        <span>🥬 Spinach</span> <i class="fa-solid fa-check text-xs"></i>
+                    </button>
+                    <button onclick="toggleIngredient(this, 'Cheese')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2 selected-chip bg-orange-50 border-brand-orange text-brand-orange" data-ing="Cheese">
+                        <span>🧀 Cheese</span> <i class="fa-solid fa-check text-xs"></i>
+                    </button>
+                    <button onclick="toggleIngredient(this, 'Tomato')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2" data-ing="Tomato">
+                        <span>🍅 Tomato</span> <i class="fa-solid fa-check text-xs hidden"></i>
+                    </button>
+                    <button onclick="toggleIngredient(this, 'Avocado')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2" data-ing="Avocado">
+                        <span>🥑 Avocado</span> <i class="fa-solid fa-check text-xs hidden"></i>
+                    </button>
+                    <button onclick="toggleIngredient(this, 'Chicken')" class="px-4 py-2.5 rounded-full border-2 border-gray-200 text-sm font-semibold hover:border-brand-orange transition-all flex items-center gap-2" data-ing="Chicken">
+                        <span>🍗 Chicken</span> <i class="fa-solid fa-check text-xs hidden"></i>
+                    </button>
+                </div>
+
+                <!-- Recipe Result Box -->
+                <div id="recipe-result-box" class="bg-brand-cream rounded-3xl p-6 sm:p-8 border border-orange-100 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-full md:w-1/3">
+                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80" 
+                             alt="Cheesy Spinach Omelet" 
+                             onerror="this.src='https://placehold.co/400x300/FF6B00/FFFFFF?text=Delicious+Recipe'"
+                             class="w-full h-48 object-cover rounded-2xl shadow-md">
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-3 py-1 bg-brand-orange text-white text-xs font-bold rounded-full">⏱️ 10 Minutes</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">100% Match</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-brand-dark">Cheesy Spinach Omelet</h3>
+                        <p class="text-gray-600 text-sm">Whisk your eggs, fold in fresh tender spinach and melted cheddar cheese. Cook over medium heat for 4 minutes and fold. Breakfast perfection!</p>
+                        <button onclick="openModal('download')" class="inline-flex items-center gap-2 text-brand-orange font-bold text-sm hover:underline">
+                            <span>Unlock Full Recipe & Guided Timer</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="px-4 py-1.5 bg-orange-100 text-brand-orange font-bold text-xs uppercase tracking-wider rounded-full">Happy Cooks</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mt-3 mb-4">Loved by Busy Parents & Professionals</h2>
+                <p class="text-gray-600 text-lg">See how CookFast changed weeknight cooking forever.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-brand-cream p-8 rounded-3xl flex flex-col justify-between shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-700 text-base leading-relaxed">"As a working mom of two, 'What's for dinner?' used to give me instant anxiety. CookFast is an absolute lifesaver. We haven't ordered takeout in 3 weeks!"</p>
+                    </div>
+                    <div class="flex items-center gap-4 mt-8 pt-6 border-t border-orange-100">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" 
+                             alt="Sarah Jenkins" 
+                             onerror="this.src='https://placehold.co/100x100/FF6B00/FFFFFF?text=SJ'"
+                             class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-brand-dark">Sarah Jenkins</p>
+                            <p class="text-xs text-gray-500">Working Parent & Architect</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-cream p-8 rounded-3xl flex flex-col justify-between shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-700 text-base leading-relaxed">"I used to throw away at least $40 of rotting veggies every single week. With CookFast, I clear out my crisper drawer creatively and save a ton of cash."</p>
+                    </div>
+                    <div class="flex items-center gap-4 mt-8 pt-6 border-t border-orange-100">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" 
+                             alt="Marcus Vance" 
+                             onerror="this.src='https://placehold.co/100x100/FF6B00/FFFFFF?text=MV'"
+                             class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-brand-dark">Marcus Vance</p>
+                            <p class="text-xs text-gray-500">Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-brand-cream p-8 rounded-3xl flex flex-col justify-between shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-700 text-base leading-relaxed">"The 15-minute recipes are actually fast and don't require 40 rare spices. The audio timer feature is genius when my hands are messy."</p>
+                    </div>
+                    <div class="flex items-center gap-4 mt-8 pt-6 border-t border-orange-100">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" 
+                             alt="Elena Rostova" 
+                             onerror="this.src='https://placehold.co/100x100/FF6B00/FFFFFF?text=ER'"
+                             class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-brand-dark">Elena Rostova</p>
+                            <p class="text-xs text-gray-500">Graphic Designer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-brand-cream border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="px-4 py-1.5 bg-orange-100 text-brand-orange font-bold text-xs uppercase tracking-wider rounded-full">Got Questions?</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mt-3 mb-4">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-lg text-brand-dark flex justify-between items-center focus:outline-none">
+                        <span>Is CookFast really free to use?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Yes! CookFast is completely free to download and includes dozens of core 15-minute recipes and fridge-matching features at no cost. We also offer a CookFast Premium tier for advanced meal planning, dietary custom filters, and voice assistant integrations.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-lg text-brand-dark flex justify-between items-center focus:outline-none">
+                        <span>How does the ingredient scanner work?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-gray-600 text-sm leading-relaxed">
+                        You can simply snap a quick photo of your open fridge or pantry shelves. Our AI image recognition instantly detects your available produce, condiments, and proteins, populating your digital pantry in seconds.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-lg text-brand-dark flex justify-between items-center focus:outline-none">
+                        <span>Can I set dietary restrictions like vegan or gluten-free?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Absolutely. During onboarding, you can specify your dietary preferences (Vegan, Vegetarian, Gluten-Free, Keto, Nut-Allergies, etc.), and CookFast will tailor every single recipe recommendation accordingly.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-lg text-brand-dark flex justify-between items-center focus:outline-none">
+                        <span>When will the app be officially released?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-orange transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-gray-600 text-sm leading-relaxed">
+                        CookFast is currently in private beta with over 50,000 early waitlist signups. The official iOS and Android apps launch next month. Join our waitlist today to secure free early access!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call-to-Action Footer Banner -->
+    <section class="py-20 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FF6B00_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-3xl sm:text-5xl font-extrabold mb-6 tracking-tight">Ready to cook smarter and faster?</h2>
+            <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10">Download CookFast today and make dinner the easiest part of your busy day.</p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="openModal('download')" class="px-8 py-4 bg-brand-orange hover:bg-brand-orangeHover text-white font-bold rounded-full shadow-lg shadow-brand-orange/30 transition-all transform hover:-translate-y-0.5">
+                    Download CookFast Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-brand-orange rounded-xl flex items-center justify-center text-white">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <span class="text-xl font-extrabold text-white">Cook<span class="text-brand-orange">Fast</span></span>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors">Contact Support</a>
+                <a href="#" class="hover:text-white transition-colors">Press Kit</a>
+            </div>
+
+            <div class="flex gap-4 text-xl">
+                <a href="#" class="hover:text-brand-orange transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-brand-orange transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="hover:text-brand-orange transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-8 pt-8 border-t border-gray-900 text-xs text-gray-600">
+            &copy; 2026 CookFast Inc. All rights reserved. Made for busy people everywhere.
+        </div>
+    </footer>
+
+    <!-- Modal Dialog -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="modal-content" class="text-center space-y-4 pt-2">
+                <div class="w-16 h-16 bg-orange-100 text-brand-orange rounded-2xl mx-auto flex items-center justify-center text-3xl font-bold mb-4">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-brand-dark">Join the VIP Waitlist</h3>
+                <p class="text-gray-600 text-sm">We are rolling out invites in batches. Enter your email to secure your priority spot and get 1 month of CookFast Premium free!</p>
+                
+                <form onsubmit="handleModalSubmit(event)" class="space-y-3 pt-2">
+                    <input type="email" id="modal-email" placeholder="Enter your email address..." required
+                        class="w-full px-5 py-3.5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-orange text-brand-dark">
+                    <button type="submit" class="w-full py-3.5 bg-brand-orange hover:bg-brand-orangeHover text-white font-bold rounded-2xl shadow-lg shadow-brand-orange/30 transition-all">
+                        Secure My Early Access
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Message Box -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-dark text-white px-6 py-4 rounded-2xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-300 flex items-center gap-3 border border-gray-800">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <p class="font-bold text-sm" id="toast-title">Success!</p>
+            <p class="text-xs text-gray-300" id="toast-desc">You're officially on the waitlist.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click
+        mobileMenu.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            // Toggle active state
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Modal Controls
+        const modal = document.getElementById('modal');
+        
+        function openModal(type) {
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Toast Notification Function
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = desc;
+            
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        }
+
+        // Waitlist Form Handler
+        function handleWaitlist(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('waitlist-email');
+            if (emailInput.value) {
+                showToast("You're on the list!", "We've sent a confirmation link to " + emailInput.value);
+                emailInput.value = '';
+            }
+        }
+
+        function handleModalSubmit(e) {
+            e.preventDefault();
+            const modalEmail = document.getElementById('modal-email');
+            if (modalEmail.value) {
+                closeModal();
+                showToast("VIP Access Confirmed!", "Check your inbox for beta release details.");
+                modalEmail.value = '';
+            }
+        }
+
+        // Interactive Sneak Peek Widget Logic
+        const selectedIngredients = new Set(['Eggs', 'Spinach', 'Cheese']);
+
+        const recipeDatabase = {
+            'Eggs,Spinach,Cheese': {
+                title: 'Cheesy Spinach Omelet',
+                time: '10 Minutes',
+                image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80',
+                desc: 'Whisk your eggs, fold in fresh tender spinach and melted cheddar cheese. Cook over medium heat for 4 minutes and fold. Breakfast perfection!'
+            },
+            'Eggs,Tomato,Avocado': {
+                title: 'Avocado & Tomato Scramble Toast',
+                time: '8 Minutes',
+                image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80',
+                desc: 'Quickly scramble fluffy eggs with diced ripe tomatoes and layer over toasted sourdough topped with fresh sliced avocado.'
+            },
+            'Chicken,Spinach,Tomato': {
+                title: '15-Minute Skillet Garlic Chicken',
+                time: '14 Minutes',
+                image: 'https://images.unsplash.com/photo-1604908176997-125f2596f3c8?auto=format&fit=crop&w=600&q=80',
+                desc: 'Sauté chicken strips with garlic, toss in fresh cherry tomatoes and wilted spinach for a healthy, high-protein weeknight dinner.'
+            }
+        };
+
+        function toggleIngredient(btn, ingredient) {
+            const checkIcon = btn.querySelector('.fa-check');
+            
+            if (selectedIngredients.has(ingredient)) {
+                if (selectedIngredients.size > 1) {
+                    selectedIngredients.delete(ingredient);
+                    btn.classList.remove('bg-orange-50', 'border-brand-orange', 'text-brand-orange');
+                    checkIcon.classList.add('hidden');
+                } else {
+                    showToast("Selection Notice", "Please keep at least 1 ingredient selected.");
+                }
+            } else {
+                selectedIngredients.add(ingredient);
+                btn.classList.add('bg-orange-50', 'border-brand-orange', 'text-brand-orange');
+                checkIcon.classList.remove('hidden');
+            }
+
+            updateRecipeResult();
+        }
+
+        function updateRecipeResult() {
+            const resultBox = document.getElementById('recipe-result-box');
+            const arr = Array.from(selectedIngredients).sort();
+            
+            // Find best matching key or fallback
+            let matchedKey = Object.keys(recipeDatabase).find(k => {
+                const parts = k.split(',');
+                return parts.some(p => selectedIngredients.has(p));
+            });
+
+            const recipe = matchedKey ? recipeDatabase[matchedKey] : {
+                title: 'Custom ' + Array.from(selectedIngredients).join(' & ') + ' Bowl',
+                time: '12 Minutes',
+                image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80',
+                desc: 'Combine your selected ingredients into a fast, delicious skillet dish with olive oil, salt, pepper, and your favorite herbs.'
+            };
+
+            resultBox.innerHTML = `
+                <div class="w-full md:w-1/3">
+                    <img src="${recipe.image}" 
+                         alt="${recipe.title}" 
+                         onerror="this.src='https://placehold.co/400x300/FF6B00/FFFFFF?text=Delicious+Recipe'"
+                         class="w-full h-48 object-cover rounded-2xl shadow-md">
+                </div>
+                <div class="w-full md:w-2/3 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 bg-brand-orange text-white text-xs font-bold rounded-full">⏱️ ${recipe.time}</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">98% Match</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-brand-dark">${recipe.title}</h3>
+                    <p class="text-gray-600 text-sm">${recipe.desc}</p>
+                    <button onclick="openModal('download')" class="inline-flex items-center gap-2 text-brand-orange font-bold text-sm hover:underline">
+                        <span>Unlock Full Recipe & Guided Timer</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
